@@ -1,0 +1,27 @@
+{
+  "name": "fullstack-backend-team-alst-back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/staten-island-tech/fullstack-backend-team-alst-back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/staten-island-tech/fullstack-backend-team-alst-back-end/issues"
+  },
+  "homepage": "https://github.com/staten-island-tech/fullstack-backend-team-alst-back-end#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
