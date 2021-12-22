@@ -26,6 +26,6 @@ exports.authPage = async (req, res) => {
   try {
     res.json(req.body.user);
   } catch (error) {
-    console.log(error);
+    res.json("you must be signed in");
   }
 };
