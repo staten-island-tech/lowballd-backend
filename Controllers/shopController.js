@@ -1,3 +1,5 @@
+const Shop = require("../Models/shops");
+
 exports.middlewareSample = (req, res, next) => {
   req.name = "TEST";
   next();
@@ -14,18 +16,10 @@ exports.homepage = async (req, res) => {
   }
 };
 
-exports.authMiddleware = (req, res, next) => {
-  if (req.body.user) {
-    next();
-  } else {
-    res.json("you must be signed in");
-  }
-};
-
-exports.authPage = async (req, res) => {
+exports.createShop = async (req, res) => {
   try {
-    res.json(req.body.user);
+    const shop = new Shop(req.body);
   } catch (error) {
-    res.json("you must be signed in");
+    res.status(500).json(error);
   }
 };
