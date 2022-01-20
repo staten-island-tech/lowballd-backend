@@ -19,6 +19,7 @@ exports.homepage = async (req, res) => {
 exports.createShop = async (req, res) => {
   try {
     const shop = new Shop(req.body);
+    await shop.save();
   } catch (error) {
     res.status(500).json(error);
   }
