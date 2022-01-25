@@ -3,7 +3,7 @@ require("dotenv").config({ path: "variables.env" });
 console.log(process.env.DATABASE);
 mongoose
   .connect(`${process.env.DATABASE}`, {
-    useNewURLParser: true,
+    useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("connected to DB"));
