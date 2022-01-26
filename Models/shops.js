@@ -21,4 +21,4 @@ shopSchema.pre("save", function (next) {
   this.slug = slugify(this.name);
   next();
 });
-mongoose.model.exports = mongoose.model("Shop", shopSchema);
+module.exports = mongoose.model("Shop", shopSchema);

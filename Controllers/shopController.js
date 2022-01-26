@@ -1,11 +1,11 @@
 const Shop = require("../Models/shops");
 
 exports.homePage = async (req, res) => {
-  const brands = ["Gucci", "Armani", "Tommy Hilfiger", "Polo"];
+  const stores = ["Gucci", "Armani", "Tommy Hilfiger", "Polo"];
 
   try {
     console.log(req.name);
-    res.json(brands);
+    res.json(stores);
   } catch (error) {
     console.log(error);
   }
