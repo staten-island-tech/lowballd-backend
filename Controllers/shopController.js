@@ -29,3 +29,15 @@ exports.getShops = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.updateShop = async (req, res) => {
+  try {
+    const shop = await Shop.findById(req.params.id);
+    const updates = Object.keys(req.body);
+    updates.forEach((update) => (shop[update] = req.body[update]));
+    await shop.save();
+    res.json(shop);
+  } catch (error) {
+    console.log(error);
+  }
+};
