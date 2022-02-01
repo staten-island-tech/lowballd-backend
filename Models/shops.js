@@ -10,6 +10,7 @@ const shopSchema = new mongoose.Schema({
   description: {
     type: String,
     trim: true,
+    required: "Please provide a description",
   },
   tags: [String],
 });
