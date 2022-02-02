@@ -23,7 +23,7 @@ exports.createShop = async (req, res) => {
 
 exports.getShops = async (req, res) => {
   try {
-    const Shops = await Shop.find().limit(3); //.limit is limiting how many thigns pop up upon request
+    const Shops = await Shop.find().limit(3); //.limit is limiting how many things pop up upon request
     res.json(Shops);
   } catch (error) {
     console.log(error);
