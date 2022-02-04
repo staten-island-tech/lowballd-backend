@@ -1,9 +1,9 @@
 const express = require("express");
 const router = new express.Router();
-const shopController = require("../Controllers/shopController");
+const postController = require("../Controllers/postController");
 
-router.get("/", shopController.getShops);
-router.post("/add", shopController.createShop);
-router.patch("/shop/:id", shopController.updateShop);
-router.delete("/shop/:id", shopController.deleteShop);
+router.get("/profile/posts", postController.getPosts);
+router.post("/profile/add", postController.createPost);
+router.patch("/shop/:id", postController.updatePost);
+router.delete("/shop/:id", postController.deletePost);
 module.exports = router;

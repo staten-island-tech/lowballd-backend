@@ -1,25 +1,30 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 const shopSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     trim: true,
-    required: "Please enter a store name",
+    required: true,
   },
-  slug: String,
-  description: {
+  caption: {
     type: String,
     trim: true,
     required: "Please provide a description",
   },
+  price: {
+    type: String,
+    trim: true,
+    required: "Please enter a list price",
+  },
+  slug: String,
   tags: [String],
 });
 shopSchema.pre("save", function (next) {
-  if (!this.isModified("name")) {
+  if (!this.isModified("caption", "price", "title")) {
     next();
     return;
   }
-  this.slug = slugify(this.name);
+  this.slug = slugify(this.title);
   next();
 });
 module.exports = mongoose.model("Shop", shopSchema);
