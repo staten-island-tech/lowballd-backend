@@ -12,8 +12,8 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const User = await User.find().limit(3); //.limit is limiting how many things pop up upon request
-    res.json(User);
+    const user = await User.find().limit(3); //.limit is limiting how many things pop up upon request
+    res.json(user);
   } catch (error) {
     console.log(error);
   }

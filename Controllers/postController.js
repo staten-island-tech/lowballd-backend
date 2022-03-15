@@ -12,8 +12,8 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const Post = await Post.find().limit(3); //.limit is limiting how many things pop up upon request
-    res.json(Post);
+    const post = await Post.find().limit(3); //.limit is limiting how many things pop up upon request
+    res.json(post);
   } catch (error) {
     console.log(error);
   }
