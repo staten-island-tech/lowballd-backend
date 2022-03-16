@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema({
   },
   slug: String,
   tags: [String],
+  totalFollowing: {
+    type: Number,
+    default: 0,
+  },
+  totalFollowers: {
+    type: Number,
+    default: 0,
+  },
 });
 userSchema.pre("save", function (next) {
   if (!this.isModified("caption", "price", "title")) {
