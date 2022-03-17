@@ -37,7 +37,7 @@ exports.deletePost = async (req, res) => {
     if (!post) {
       res.status(404).send();
     }
-    res.send(`${post.name} was deleted from the DB`);
+    res.send(`${post.title} was deleted from the DB`);
   } catch (error) {
     console.log(error);
   }

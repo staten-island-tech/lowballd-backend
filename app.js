@@ -10,8 +10,9 @@ app.use(express.urlencoded());
 app.use(cors());
 
 const posts = require("./Routes/api/post");
-app.use("/api", posts);
-
+app.use("/api/posts", posts);
+const user = require("./Routes/api/user");
+app.use("/api/user", user);
 app.listen(port, () => {
   console.log(`Server is up on ${port}`);
 });
