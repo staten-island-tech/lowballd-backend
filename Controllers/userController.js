@@ -3,7 +3,7 @@ const User = require("../Models/user");
 exports.createUser = async (req, res) => {
   try {
     const user = new User(req.body);
-    await user.save();
+    await user.users.save();
     res.json(user);
   } catch (error) {
     res.status(500).json(error);
@@ -21,10 +21,10 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.users.findById(req.params.id);
     const updates = Object.keys(req.body);
     updates.forEach((update) => (user[update] = req.body[update]));
-    await user.save();
+    await user.users.save();
     res.json(user);
   } catch (error) {
     console.log(error);
@@ -33,7 +33,7 @@ exports.updateUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const user = await User.users.findByIdAndDelete(req.params.id);
     if (!user) {
       res.status(404).send();
     }
