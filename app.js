@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
 
-const { auth } = require("express-openid-connect");
+const { auth, requiresAuth } = require("express-openid-connect");
 
 const config = {
   authRequired: false,
@@ -26,7 +26,7 @@ const config = {
 };
 
 app.use(auth(config));
-app.get("/", (req, res) => {
+app.get("/", requiresAuth(), (req, res) => {
   res.send(req.oidc.isAuthenticated() ? `${req.oidc.user.name}` : "Logged out");
   console.log(req.oidc.user);
 });
