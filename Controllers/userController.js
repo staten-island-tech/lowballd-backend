@@ -21,12 +21,13 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const user = await User.users
-      .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-      .exec();
+    const user = await User.users.findById(req.params.id);
+    const updates = Object.keys(req.body);
+    updates.forEach((update) => (user[update] = req.body[update]));
+    await user.users.save();
     res.json(user);
   } catch (error) {
-    console.log(error, "test");
+    console.log(error);
   }
 };
 
