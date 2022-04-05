@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: "Please provide a description",
+    unique: true,
   },
   profile_picture: {
     type: String,
