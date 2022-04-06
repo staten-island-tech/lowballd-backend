@@ -1,14 +1,5 @@
 const express = require("express"); // this file requires express server
 const port = process.env.PORT || 3001; // use external server port OR local 3000
-const { auth, requiresAuth } = require("express-openid-connect");
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  baseURL: process.env.BASE_URL,
-  clientID: process.env.CLIENT_ID,
-  issuerBaseURL: process.env.ISSUER_BASE_URL,
-  secret: process.env.SECRET,
-};
 
 const app = express(); //instantiate express
 const cors = require("cors");
@@ -43,15 +34,24 @@ const checkJwt = jwt({
 app.get("/authorized", checkJwt, async function (req, res) {
   try {
     console.log(req.user);
-    res.json(req.user);
+    res.json(req.user.sub);
   } catch (error) {
     console.log(error);
   }
 });
+const { auth, requiresAuth } = require("express-openid-connect");
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  baseURL: process.env.BASE_URL,
+  clientID: process.env.CLIENT_ID,
+  issuerBaseURL: process.env.ISSUER_BASE_URL,
+  secret: process.env.SECRET,
+};
 
 app.use(auth(config));
-app.get("/", requiresAuth(), (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? `${req.oidc.user.name}` : "Logged out");
+app.get("/", (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? `${req.oidc.user}` : "Logged out");
   console.log(req.oidc.user);
 });
 
