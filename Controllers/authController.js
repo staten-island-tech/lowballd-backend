@@ -1,9 +1,7 @@
 exports.login = function (email, password, callback) {
   const bcrypt = require("bcrypt");
   const MongoClient = require("mongodb@3.1.4").MongoClient;
-  const client = new MongoClient(
-    "mongodb+srv://MuhammadC11:Momo2354@fullstackbackend.owb3s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-  );
+  const client = new MongoClient(process.env.DATABASE);
 
   client.connect(function (err) {
     if (err) return callback(err);

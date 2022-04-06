@@ -3,6 +3,8 @@ const Post = require("../Models/posts");
 exports.createPost = async (req, res) => {
   try {
     const post = new Post(req.body);
+    const imagename = req.file.filename;
+    post.image = imagename;
     await post.shops.save();
     res.json(post);
   } catch (error) {
@@ -12,7 +14,7 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const post = await Post.find().limit(3); //.limit is limiting how many things pop up upon request
+    const post = await Post.find().limit(5); //.limit is limiting how many things pop up upon request
     res.json(post);
   } catch (error) {
     console.log(error);
