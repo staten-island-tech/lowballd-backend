@@ -6,16 +6,15 @@ const cors = require("cors");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 require("./DB/mongoose"); //ensures mongoos connects and runs
-const posts = require("./Routes/api/post");
-app.use("/api/posts", posts);
-const user = require("./Routes/api/user");
-app.use("/api/user", user);
 
 //takes the raw requests and turns them into usable properties on req.body
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
-
+const posts = require("./Routes/api/post");
+app.use("/api/posts", posts);
+const user = require("./Routes/api/user");
+app.use("/api/user", user);
 const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint
   secret: jwksRsa.expressJwtSecret({
@@ -34,7 +33,7 @@ const checkJwt = jwt({
 app.get("/authorized", checkJwt, async function (req, res) {
   try {
     console.log(req.user);
-    res.json(req.user.sub);
+    res.json(req.user);
   } catch (error) {
     console.log(error);
   }

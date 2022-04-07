@@ -3,10 +3,11 @@ const Post = require("../Models/posts");
 exports.createPost = async (req, res) => {
   try {
     const post = new Post(req.body);
-    const imagename = req.file.filename;
-    post.image = imagename;
-    await post.shops.save();
-    res.json(post);
+    console.log(req.body);
+    /* const imagename = req.file.filename;
+    post.image = imagename; */
+    await post.save();
+    res.json(req.body);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -26,7 +27,7 @@ exports.updatePost = async (req, res) => {
     const post = await Post.shops.findById(req.params.id);
     const updates = Object.keys(req.body);
     updates.forEach((update) => (post[update] = req.body[update]));
-    await post.shop.save();
+    await post.shops.save();
     res.json(post);
   } catch (error) {
     console.log(error);
