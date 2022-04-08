@@ -1,7 +1,11 @@
 const express = require("express"); // this file requires express server
 const port = process.env.PORT || 3001; // use external server port OR local 3000
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const multer = require("multer");
 
-const app = express(); //instantiate express
+const app = express();
+
 const cors = require("cors");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
@@ -28,6 +32,26 @@ const checkJwt = jwt({
   audience: "http://localhost:3001/api", //replace with your API's audience, available at Dashboard > APIs
   issuer: "https://dev-5t61kzw2.us.auth0.com/",
   algorithms: ["RS256"],
+});
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "DEV",
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/upload", upload.array("pictures", 4), async (req, res) => {
+  console.log(req.files.path);
+  return res.json({ pictures: req.files.path });
 });
 
 app.get("/authorized", checkJwt, async function (req, res) {
