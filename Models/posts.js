@@ -7,24 +7,44 @@ const postSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    caption: {
-      type: String,
-      trim: true,
-      required: "Please provide a description",
-    },
     img: {
       type: String,
       trim: true,
       required: "Please provide an image",
     },
-    size: {
-      type: String,
-      required: "Please provide a size",
-    },
     price: {
       type: Number,
       trim: true,
       required: "Please enter a list price",
+    },
+    caption: {
+      type: String,
+      trim: true,
+      required: "Please provide a description",
+    },
+    style: {
+      type: String,
+      trim: true,
+      required: "Please provide a style",
+    },
+    brand: {
+      type: String,
+      trim: true,
+      required: "Please provide the brand of the product",
+    },
+    size: {
+      type: String,
+      required: "Please provide a size",
+    },
+    condition: {
+      type: String,
+      trim: true,
+      required: "Please provide the condition of the product",
+    },
+    color: {
+      type: String,
+      trim: true,
+      required: "Please provide a color",
     },
     slug: String,
     tags: [String],
