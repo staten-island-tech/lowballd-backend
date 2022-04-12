@@ -28,11 +28,15 @@ router.post("/upload", upload.single("picture"), async (req, res) => {
   console.log(result);
   const post = new Post({
     title: req.body.title,
-    caption: req.body.caption,
-    size: req.body.size,
-    price: req.body.price,
-    tags: req.body.tags,
     img: result,
+    price: req.body.price,
+    caption: req.body.caption,
+    style: req.body.style,
+    brand: req.body.brand,
+    size: req.body.size,
+    condition: req.body.condition,
+    color: req.body.color,
+    tags: req.body.tags,
   });
   console.log(req.body);
   await post.save();
