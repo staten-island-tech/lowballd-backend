@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-const postSchema = new mongoose.Schema(
+const marketPostSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -48,14 +48,14 @@ const postSchema = new mongoose.Schema(
     },
     slug: String,
     tags: [String],
-    likes:{
+    likes: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   { timestamps: true }
 );
-postSchema.pre("save", function (next) {
+marketSchema.pre("save", function (next) {
   if (!this.isModified("caption", "price", "title")) {
     next();
     return;
@@ -63,4 +63,4 @@ postSchema.pre("save", function (next) {
   this.slug = slugify(this.title);
   next();
 });
-module.exports = mongoose.model("posts", postSchema);
+module.exports = mongoose.model("posts", marketPostSchema);

@@ -1,4 +1,4 @@
-const Post = require("../Models/posts");
+const Post = require("../Models/marketPost");
 
 exports.createPost = async (req, res) => {
   try {
