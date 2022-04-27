@@ -5,6 +5,22 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 const Post = require("../../Models/posts");
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
+const checkJwt = jwt({
+  // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://dev-5t61kzw2.us.auth0.com/.well-known/jwks.json`,
+  }),
+
+  // Validate the audience and the issuer
+  audience: "http://localhost:3001/api", //replace with your API's audience, available at Dashboard > APIs
+  issuer: "https://dev-5t61kzw2.us.auth0.com/",
+  algorithms: ["RS256"],
+});
 
 router.get("/", postController.getPosts);
 
@@ -23,7 +39,7 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/upload", upload.single("picture"), async (req, res) => {
+router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
   console.log(req.file.path);
   const result = req.file.path;
   console.log(result);
@@ -44,6 +60,6 @@ router.post("/upload", upload.single("picture"), async (req, res) => {
   res.json({ picture: req.file.path });
 });
 
-router.patch("/update/:id", postController.updatePost);
-router.delete("/delete/:id", postController.deletePost);
+router.patch("/update/:id", checkJwt, postController.updatePost);
+router.delete("/delete/:id", checkJwt, postController.deletePost);
 module.exports = router;
