@@ -55,7 +55,7 @@ const marketPostSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-marketSchema.pre("save", function (next) {
+marketPostSchema.pre("save", function (next) {
   if (!this.isModified("caption", "price", "title")) {
     next();
     return;

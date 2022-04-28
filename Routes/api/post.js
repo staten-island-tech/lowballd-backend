@@ -21,7 +21,6 @@ const checkJwt = jwt({
   issuer: "https://dev-5t61kzw2.us.auth0.com/",
   algorithms: ["RS256"],
 });
-const MarketPost = require("../../Models/marketPost");
 
 router.get("/", postController.getPosts);
 
