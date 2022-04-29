@@ -12,9 +12,9 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id); //.limit is limiting how many things pop up upon request
-    res.json("good");
-    console.log(req.params.id);
+    const user = await User.find(); //.limit is limiting how many things pop up upon request
+    res.json(user);
+    console.log(user);
   } catch (error) {
     res.json(error);
     console.log(error);
