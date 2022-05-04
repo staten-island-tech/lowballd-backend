@@ -36,4 +36,4 @@ userSchema.pre("save", function (next) {
   this.slug = slugify(this.username);
   next();
 });
-module.exports = mongoose.model("users", userSchema, "authentication");
+module.exports = mongoose.model("authentication", userSchema, "authentication");

@@ -14,7 +14,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "DEV",
+    folder: "pfp",
   },
 });
 
@@ -27,7 +27,7 @@ router.patch("/update/:id", upload.single("picture"), async (req, res) => {
     console.log(req.file.path);
     const result = req.file.path;
     const user = await User.findOneAndUpdate(
-      req.params.id,
+      { _id: req.params.id },
       { profile_picture: result },
       {
         new: true,
