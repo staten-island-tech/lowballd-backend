@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const userController = require("../../Controllers/userController");
 const User = require("../../Models/user");
+
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
@@ -24,17 +25,22 @@ router.get("/:id", userController.getUser);
 
 router.patch("/update/:id", upload.single("picture"), async (req, res) => {
   try {
-    console.log(req.file.path);
     const result = req.file.path;
     const user = await User.findOneAndUpdate(
-      { _id: req.params.id },
-      { profile_picture: result },
+      {
+        _id: req.params.id,
+        profile_picture: result,
+        username: req.body.username,
+        email: req.body.email,
+      },
+
       {
         new: true,
       }
     ).exec();
     await user.save();
     res.json(user);
+    console.log(req.file.path);
     console.log(user);
   } catch (error) {
     console.log(error, "test");
