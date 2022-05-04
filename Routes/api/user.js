@@ -33,6 +33,7 @@ router.patch("/update/:id", upload.single("picture"), async (req, res) => {
         new: true,
       }
     ).exec();
+    await user.save();
     res.json(user);
     console.log(user);
   } catch (error) {
