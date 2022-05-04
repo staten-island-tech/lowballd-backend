@@ -1,18 +1,8 @@
 const User = require("../Models/user");
 
-exports.createUser = async (req, res) => {
-  try {
-    const user = new User(req.body);
-    await user.save();
-    res.json(user);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.find(); //.limit is limiting how many things pop up upon request
+    const user = await User.findById(req.params.id); //.limit is limiting how many things pop up upon request
     res.json(user);
     console.log(user);
   } catch (error) {
@@ -23,9 +13,9 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const user = await User.users
-      .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-      .exec();
+    const user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    }).exec();
     res.json(user);
   } catch (error) {
     console.log(error, "test");

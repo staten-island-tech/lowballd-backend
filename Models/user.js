@@ -9,13 +9,13 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     trim: true,
-    required: "Please provide a description",
+    required: "Please provide an email or update email",
     unique: true,
   },
   profile_picture: {
     type: String,
     trim: true,
-    required: "Please enter a list price",
+    required: "Please upload a profile picture",
   },
   slug: String,
   tags: [String],
@@ -36,4 +36,4 @@ userSchema.pre("save", function (next) {
   this.slug = slugify(this.username);
   next();
 });
-module.exports = mongoose.model("authentication", userSchema);
+module.exports = mongoose.model("users", userSchema, "authentication");
