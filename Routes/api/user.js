@@ -22,7 +22,27 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 router.get("/:id", userController.getUser);
-
+router.patch("/update/:id", async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      {
+        username: req.body.username,
+        email: req.body.email,
+      },
+      {
+        new: true,
+      }
+    ).exec();
+    await user.save();
+    res.json(user);
+    console.log(user);
+  } catch (error) {
+    console.log(error, "test");
+  }
+});
 router.patch("/update/pfp/:id", upload.single("picture"), async (req, res) => {
   try {
     const result = req.file.path;
