@@ -19,19 +19,20 @@ const userSchema = new mongoose.Schema({
   profile_picture: {
     type: String,
     trim: true,
+    default: "",
   },
   slug: String,
   totalFollowing: {
-    type: Number,
-    default: 0,
+    type: Array,
+    default: "",
   },
   totalFollowers: {
-    type: Number,
-    default: 0,
+    type: Array,
+    default: "",
   },
 });
 userSchema.pre("save", function (next) {
-  if (!this.isModified("caption", "price", "title")) {
+  if (!this.isModified("username", "email", "description")) {
     next();
     return;
   }

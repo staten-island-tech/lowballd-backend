@@ -31,14 +31,15 @@ router.patch("/update/:id", async (req, res) => {
       {
         username: req.body.username,
         email: req.body.email,
+        description: req.body.description,
       },
       {
         new: true,
       }
     ).exec();
+    console.log(req.body);
     await user.save();
     res.json(user);
-    console.log(user);
   } catch (error) {
     console.log(error, "test");
   }
