@@ -10,6 +10,48 @@ exports.getUser = async (req, res) => {
   }
 };
 
+exports.updateUserInfo = async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { username: req.body.username },
+      { email: req.body.email },
+
+      {
+        new: true,
+      }
+    ).exec();
+    await user.save();
+    res.json(user);
+    console.log(user);
+  } catch (error) {
+    console.log(error, "test");
+  }
+};
+
+exports.updateUserInfo = async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { username: req.body.username },
+      { email: req.body.email },
+
+      {
+        new: true,
+      }
+    ).exec();
+    await user.save();
+    res.json(user);
+    console.log(user);
+  } catch (error) {
+    console.log(error, "test");
+  }
+};
+
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.users.findByIdAndDelete(req.params.id);

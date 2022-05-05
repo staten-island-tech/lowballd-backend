@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
     trim: true,
     unique: true,
   },
+  description: {
+    type: String,
+    trim: true,
+    default: "",
+  },
   profile_picture: {
     type: String,
     trim: true,

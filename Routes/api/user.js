@@ -23,15 +23,15 @@ const upload = multer({ storage: storage });
 
 router.get("/:id", userController.getUser);
 
-router.patch("/update/:id", upload.single("picture"), async (req, res) => {
+router.patch("/update/pfp/:id", upload.single("picture"), async (req, res) => {
   try {
     const result = req.file.path;
     const user = await User.findOneAndUpdate(
       {
         _id: req.params.id,
+      },
+      {
         profile_picture: result,
-        username: req.body.username,
-        email: req.body.email,
       },
 
       {
