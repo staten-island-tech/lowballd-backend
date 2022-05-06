@@ -24,11 +24,11 @@ const userSchema = new mongoose.Schema({
   slug: String,
   totalFollowing: {
     type: Array,
-    default: "",
+    default: null,
   },
   totalFollowers: {
     type: Array,
-    default: "",
+    default: null,
   },
   email_verified: {
     type: Boolean,
@@ -45,7 +45,6 @@ const userSchema = new mongoose.Schema({
 }); */
 userSchema.pre("save", async function (next) {
   if (!this.isModified("email")) return next();
-
   this.email_verified = false;
 });
 

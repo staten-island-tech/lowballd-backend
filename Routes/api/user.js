@@ -34,7 +34,7 @@ router.patch("/update/:id", async (req, res) => {
         description: req.body.description,
       },
       {
-        new: true,
+        new: false,
       }
     ).exec();
     console.log(req.body);
