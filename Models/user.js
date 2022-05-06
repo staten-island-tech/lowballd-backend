@@ -30,13 +30,23 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: "",
   },
+  email_verified: {
+    type: Boolean,
+    default: false,
+  },
 });
-userSchema.pre("save", function (next) {
-  if (!this.isModified("username", "email", "description")) {
+/* userSchema.pre("save", function (next) {
+  if (!this.isModified("username", "description")) {
     next();
     return;
   }
   this.slug = slugify(this.username);
   next();
+}); */
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("email")) return next();
+
+  this.email_verified = false;
 });
+
 module.exports = mongoose.model("authentication", userSchema, "authentication");
