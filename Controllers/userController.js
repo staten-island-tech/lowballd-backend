@@ -1,12 +1,14 @@
 const User = require("../Models/user");
-
+//handle errors
+const handleErrors = (err) => {
+  console.log(err.message);
+};
 exports.getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id); //.limit is limiting how many things pop up upon request
     res.json(user);
-  } catch (error) {
-    res.json(error);
-    console.log(error);
+  } catch (err) {
+    handleErrors(err);
   }
 };
 
@@ -19,7 +21,7 @@ exports.deleteUser = async (req, res) => {
       res.status(404).send();
     }
     res.send(`${user.username} was deleted from the DB`);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    handleErrors(err);
   }
 };

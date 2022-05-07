@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
+const { isEmail } = require("validator");
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -10,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
     unique: true,
+    validate: [isEmail, "Please enter a valid email"],
   },
   description: {
     type: String,
