@@ -51,7 +51,7 @@ const upload = multer({ storage: storage });
 
 router.get("/:id", checkJwt, userController.getUser);
 
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", checkJwt, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const updates = Object.keys(req.body);
@@ -64,28 +64,33 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 
-router.patch("/update/pfp/:id", upload.single("picture"), async (req, res) => {
-  try {
-    const result = req.file.path;
-    const user = await User.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {
-        profile_picture: result,
-      },
+router.patch(
+  "/update/pfp/:id",
+  checkJwt,
+  upload.single("picture"),
+  async (req, res) => {
+    try {
+      const result = req.file.path;
+      const user = await User.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        {
+          profile_picture: result,
+        },
 
-      {
-        new: true,
-      }
-    ).exec();
-    await user.save();
-    res.json(user);
-    console.log(req.file.path);
-    console.log(user);
-  } catch (err) {
-    handleErrors(err);
+        {
+          new: true,
+        }
+      ).exec();
+      await user.save();
+      res.json(user);
+      console.log(req.file.path);
+      console.log(user);
+    } catch (err) {
+      handleErrors(err);
+    }
   }
-});
-router.delete("/delete/:id", userController.deleteUser);
+);
+router.delete("/delete/:id", checkJwt, userController.deleteUser);
 module.exports = router;
