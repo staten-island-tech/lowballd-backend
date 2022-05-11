@@ -14,7 +14,13 @@ const posts = require("./Routes/api/post");
 app.use("/api/posts", posts);
 const user = require("./Routes/api/user");
 app.use("/api/user", user);
-
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is up on ${port}`);
 });
