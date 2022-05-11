@@ -1,5 +1,5 @@
 const express = require("express"); // this file requires express server
-const port = process.env.PORT || 3001; // use external server port OR local 3000
+const port = process.env.PORT || 3001; // use external server port OR local 3001
 
 const app = express();
 
@@ -15,6 +15,6 @@ app.use("/api/posts", posts);
 const user = require("./Routes/api/user");
 app.use("/api/user", user);
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server is up on ${port}`);
 });
