@@ -49,7 +49,7 @@ const upload = multer({ storage: storage });
 //   }
 // };
 
-router.get("/:id", userController.getUser);
+router.get("/", userController.getUser);
 
 router.patch("/update/:id", checkJwt, async (req, res) => {
   try {

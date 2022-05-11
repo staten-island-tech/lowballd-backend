@@ -3,9 +3,10 @@ const User = require("../Models/user");
 const handleErrors = (err) => {
   console.log(err.message);
 };
+
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id); //.limit is limiting how many things pop up upon request
+    const user = await User.find(); //.limit is limiting how many things pop up upon request
     res.json(user);
   } catch (err) {
     handleErrors(err);
