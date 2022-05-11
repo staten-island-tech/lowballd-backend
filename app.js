@@ -21,6 +21,6 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, () => {
   console.log(`Server is up on ${port}`);
 });
