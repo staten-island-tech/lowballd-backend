@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema({
   profile_picture: {
     type: String,
     trim: true,
-    default: "",
+    default:
+      "https://res.cloudinary.com/lowballd/image/upload/v1652282354/451-4517876_default-profile-hd-png-download_hylebe.png",
   },
   slug: String,
   totalFollowing: {
