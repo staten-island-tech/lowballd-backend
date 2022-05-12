@@ -9,7 +9,7 @@ exports.getUser = async (req, res) => {
     const user = await User.find(); //.limit is limiting how many things pop up upon request
     res.json(user);
   } catch (err) {
-    handleErrors(err);
+    res.status(500).json(err);
   }
 };
 
