@@ -13,7 +13,7 @@ app.use(cors());
 const posts = require("./Routes/api/post");
 app.use("/api/posts", posts);
 const user = require("./Routes/api/user");
-app.use("/api/user", user);
+app.use("/", user);
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
