@@ -22,8 +22,12 @@ const feedPostSchema = new mongoose.Schema(
     slug: String,
     tags: [String],
     likes: {
-      type: Number,
-      default: 0,
+      type: Array,
+      default: null,
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }

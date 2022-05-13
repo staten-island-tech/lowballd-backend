@@ -10,7 +10,7 @@ require("./DB/mongoose"); //ensures mongoos connects and runs
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
-const posts = require("./Routes/api/post");
+const posts = require("./Routes/api/feed");
 app.use("/api/posts", posts);
 const user = require("./Routes/api/user");
 app.use("/", user);

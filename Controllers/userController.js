@@ -6,7 +6,7 @@ const handleErrors = (err) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.find(); //.limit is limiting how many things pop up upon request
+    const user = await User.findById(req.params.id); //.limit is limiting how many things pop up upon request
     res.json(user);
   } catch (err) {
     res.status(500).json(err);

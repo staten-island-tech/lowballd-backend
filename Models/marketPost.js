@@ -63,4 +63,4 @@ marketPostSchema.pre("save", function (next) {
   this.slug = slugify(this.title);
   next();
 });
-module.exports = mongoose.model("posts", marketPostSchema);
+module.exports = mongoose.model("marketPosts", marketPostSchema);

@@ -1,8 +1,8 @@
-const Post = require("../Models/marketPost");
+const feedPost = require("../Models/marketPost");
 
 exports.createPost = async (req, res) => {
   try {
-    const post = new Post(req.body);
+    const post = new feedPost(req.body);
     console.log(req.body);
     /* const imagename = req.file.filename;
     post.image = imagename; */
@@ -15,7 +15,7 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const post = await Post.find().limit(5); //.limit is limiting how many things pop up upon request
+    const post = await feedPost.find().limit(5); //.limit is limiting how many things pop up upon request
     res.json(post);
   } catch (error) {
     console.log(error);
@@ -24,7 +24,7 @@ exports.getPosts = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
-    const post = await Post.shops.findById(req.params.id);
+    const post = await feedPost.shops.findById(req.params.id);
     const updates = Object.keys(req.body);
     updates.forEach((update) => (post[update] = req.body[update]));
     await post.shops.save();
@@ -36,7 +36,7 @@ exports.updatePost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   try {
-    const post = await Post.shops.findByIdAndDelete(req.params.id);
+    const post = await feedPost.shops.findByIdAndDelete(req.params.id);
     if (!post) {
       res.status(404).send();
     }
