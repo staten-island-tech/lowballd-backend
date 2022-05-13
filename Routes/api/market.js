@@ -1,6 +1,6 @@
 const express = require("express");
 const router = new express.Router();
-const postController = require("../../Controllers/postController");
+const marketController = require("../../Controllers/marketPostController");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
@@ -22,7 +22,7 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
-router.get("/", postController.getPosts);
+router.get("/", marketController.getPosts);
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -60,6 +60,6 @@ router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
   res.json({ picture: req.file.path });
 });
 
-router.patch("/update/:id", checkJwt, postController.updatePost);
-router.delete("/delete/:id", checkJwt, postController.deletePost);
+router.patch("/update/:id", checkJwt, marketController.updatePost);
+router.delete("/delete/:id", checkJwt, marketController.deletePost);
 module.exports = router;

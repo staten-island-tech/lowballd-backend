@@ -1,10 +1,10 @@
 const express = require("express");
 const router = new express.Router();
-const postController = require("../../Controllers/postController");
+const feedController = require("../../Controllers/feedPostController");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
-const MarketPost = require("../../Models/marketPost");
+const feedPost = require("../../Models/feedPost");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const checkJwt = jwt({
@@ -22,7 +22,7 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
-router.get("/", postController.getPosts);
+router.get("/", feedController.getPosts);
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -43,16 +43,10 @@ router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
   console.log(req.file.path);
   const result = req.file.path;
   console.log(result);
-  const post = new MarketPost({
+  const post = new feedPost({
     title: req.body.title,
     img: result,
-    price: req.body.price,
     description: req.body.caption,
-    style: req.body.style,
-    brand: req.body.brand,
-    size: req.body.size,
-    condition: req.body.condition,
-    color: req.body.color,
     tags: req.body.tags,
   });
   console.log(req.body);
@@ -60,6 +54,6 @@ router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
   res.json({ picture: req.file.path });
 });
 
-router.patch("/update/:id", checkJwt, postController.updatePost);
-router.delete("/delete/:id", checkJwt, postController.deletePost);
+router.patch("/update/:id", checkJwt, feedController.updatePost);
+router.delete("/delete/:id", checkJwt, feedController.deletePost);
 module.exports = router;

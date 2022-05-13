@@ -24,10 +24,10 @@ exports.getPosts = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
-    const post = await feedPost.shops.findById(req.params.id);
+    const post = await feedPost.findById(req.params.id);
     const updates = Object.keys(req.body);
     updates.forEach((update) => (post[update] = req.body[update]));
-    await post.shops.save();
+    await post.save();
     res.json(post);
   } catch (error) {
     console.log(error);
@@ -36,7 +36,7 @@ exports.updatePost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   try {
-    const post = await feedPost.shops.findByIdAndDelete(req.params.id);
+    const post = await feedPost.findOneAndDelete(req.params.id);
     if (!post) {
       res.status(404).send();
     }
