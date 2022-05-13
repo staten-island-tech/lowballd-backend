@@ -17,7 +17,7 @@ const marketPostSchema = new mongoose.Schema(
       trim: true,
       required: "Please enter a list price",
     },
-    caption: {
+    description: {
       type: String,
       trim: true,
       required: "Please provide a description",

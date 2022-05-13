@@ -33,13 +33,13 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "Post Images",
+    folder: "Market Images",
   },
 });
 
 const upload = multer({ storage: storage });
 
-router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
+router.post("/upload", upload.single("picture"), async (req, res) => {
   console.log(req.file.path);
   const result = req.file.path;
   console.log(result);
@@ -47,7 +47,7 @@ router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
     title: req.body.title,
     img: result,
     price: req.body.price,
-    description: req.body.caption,
+    description: req.body.description,
     style: req.body.style,
     brand: req.body.brand,
     size: req.body.size,
@@ -57,7 +57,7 @@ router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
   });
   console.log(req.body);
   await post.save();
-  res.json({ picture: req.file.path });
+  res.json({ picture: req.file.path }, "Post Uploaded");
 });
 
 router.patch("/update/:id", checkJwt, marketController.updatePost);

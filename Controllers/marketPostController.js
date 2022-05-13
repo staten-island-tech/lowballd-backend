@@ -1,18 +1,5 @@
 const marketPost = require("../Models/marketPost");
 
-exports.createPost = async (req, res) => {
-  try {
-    const post = new marketPost(req.body);
-    console.log(req.body);
-    /* const imagename = req.file.filename;
-    post.image = imagename; */
-    await post.save();
-    res.json(req.body);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
 exports.getPosts = async (req, res) => {
   try {
     const post = await marketPost.find().limit(5); //.limit is limiting how many things pop up upon request

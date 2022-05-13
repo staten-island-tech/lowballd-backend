@@ -1,17 +1,4 @@
-const feedPost = require("../Models/marketPost");
-
-exports.createPost = async (req, res) => {
-  try {
-    const post = new feedPost(req.body);
-    console.log(req.body);
-    /* const imagename = req.file.filename;
-    post.image = imagename; */
-    await post.save();
-    res.json(req.body);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
+const feedPost = require("../Models/feedPost");
 
 exports.getPosts = async (req, res) => {
   try {

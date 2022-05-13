@@ -33,13 +33,13 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "Post Images",
+    folder: "Feed Images",
   },
 });
 
 const upload = multer({ storage: storage });
 
-router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
+router.post("/upload", upload.single("picture"), async (req, res) => {
   console.log(req.file.path);
   const result = req.file.path;
   console.log(result);
@@ -51,9 +51,9 @@ router.post("/upload", checkJwt, upload.single("picture"), async (req, res) => {
   });
   console.log(req.body);
   await post.save();
-  res.json({ picture: req.file.path });
+  res.json({ picture: req.file.path }, "Post Uploaded");
 });
 
-router.patch("/update/:id", checkJwt, feedController.updatePost);
+router.patch("/update/:id", feedController.updatePost);
 router.delete("/delete/:id", checkJwt, feedController.deletePost);
 module.exports = router;
