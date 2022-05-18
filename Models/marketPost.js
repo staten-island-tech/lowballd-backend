@@ -7,11 +7,13 @@ const marketPostSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    img: {
-      type: String,
-      trim: true,
-      required: "Please provide an image",
-    },
+    images: [
+      {
+        type: String,
+        trim: true,
+        required: "Please provide an image",
+      },
+    ],
     price: {
       type: Number,
       trim: true,

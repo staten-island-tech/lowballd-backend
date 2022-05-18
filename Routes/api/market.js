@@ -1,10 +1,12 @@
 const express = require("express");
 const router = new express.Router();
 const marketController = require("../../Controllers/marketPostController");
+const MarketPost = require("../../Models/marketPost");
+
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
-const MarketPost = require("../../Models/marketPost");
+
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const checkJwt = jwt({
@@ -39,13 +41,9 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/upload", upload.single("picture"), async (req, res) => {
-  console.log(req.file.path);
-  const result = req.file.path;
-  console.log(result);
+router.post("/upload", upload.array("pictures", 4), async (req, res) => {
   const post = new MarketPost({
     title: req.body.title,
-    img: result,
     price: req.body.price,
     description: req.body.description,
     style: req.body.style,
@@ -55,9 +53,26 @@ router.post("/upload", upload.single("picture"), async (req, res) => {
     color: req.body.color,
     tags: req.body.tags,
   });
-  console.log(req.body);
-  await post.save();
-  res.json({ picture: req.file.path }, "Post Uploaded");
+  if (!req.files) return res.send("Please upload a file");
+  if (req.files) {
+    const imageURIs = [];
+    const files = req.files;
+    for (const file of files) {
+      const { path } = file;
+      imageURIs.push(path);
+    }
+    post["images"] = imageURIs;
+    console.log(req.body);
+    await post.save();
+    return res.status(201).json({ post });
+  }
+
+  if (req.file && req.file.path) {
+    // if only one image uploaded
+    post["images"] = req.file.path; // add the single
+    await post.save();
+    return res.status(201).json({ post });
+  }
 });
 
 router.patch("/update/:id", checkJwt, marketController.updatePost);
