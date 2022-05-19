@@ -20,7 +20,10 @@ const feedPostSchema = new mongoose.Schema(
       trim: true,
       required: "Please provide a description",
     },
-
+    date: {
+      type: String,
+      required: "Please provide a date",
+    },
     slug: String,
     tags: [String],
     likes: {

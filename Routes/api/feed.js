@@ -40,30 +40,34 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 router.post("/upload", upload.array("pictures", 4), async (req, res) => {
-  const post = new feedPost({
-    title: req.body.title,
-    description: req.body.caption,
-    tags: req.body.tags,
-  });
-  if (!req.files) return res.send("Please upload a file");
-  if (req.files) {
-    const imageURIs = [];
-    const files = req.files;
-    for (const file of files) {
-      const { path } = file;
-      imageURIs.push(path);
+  try {
+    const post = new feedPost({
+      title: req.body.title,
+      description: req.body.caption,
+      tags: req.body.tags,
+    });
+    if (!req.files) return res.send("Please upload a file");
+    if (req.files) {
+      const imageURIs = [];
+      const files = req.files;
+      for (const file of files) {
+        const { path } = file;
+        imageURIs.push(path);
+      }
+      post["images"] = imageURIs;
+      console.log(req.body);
+      await post.save();
+      return res.status(201).json({ post });
     }
-    post["images"] = imageURIs;
-    console.log(req.body);
-    await post.save();
-    return res.status(201).json({ post });
-  }
 
-  if (req.file && req.file.path) {
-    // if only one image uploaded
-    post["images"] = req.file.path; // add the single
-    await post.save();
-    return res.status(201).json({ post });
+    if (req.file && req.file.path) {
+      // if only one image uploaded
+      post["images"] = req.file.path; // add the single
+      await post.save();
+      return res.status(201).json({ post });
+    }
+  } catch (err) {
+    res.json("this didn't work");
   }
 });
 
