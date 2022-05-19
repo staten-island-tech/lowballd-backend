@@ -7,11 +7,13 @@ const feedPostSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    img: {
-      type: String,
-      trim: true,
-      required: "Please provide an image",
-    },
+    images: [
+      {
+        type: String,
+        trim: true,
+        required: "Please provide an image",
+      },
+    ],
 
     description: {
       type: String,
@@ -26,8 +28,7 @@ const feedPostSchema = new mongoose.Schema(
       default: null,
     },
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
     },
   },
   { timestamps: true }

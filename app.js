@@ -1,8 +1,6 @@
 const express = require("express"); // this file requires express server
 const port = process.env.PORT || 3001; // use external server port OR local 3001
-
 const app = express();
-
 const cors = require("cors");
 require("./DB/mongoose"); //ensures mongoos connects and runs
 

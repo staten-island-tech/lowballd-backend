@@ -77,7 +77,7 @@ router.put("/:id/follow", async (req, res) => {
         });
         res.status(200).json("user has been followed");
       } else {
-        res.status(403).json("you allready follow this user");
+        res.status(403).json("you already follow this user");
       }
     } catch (err) {
       res.status(500).json(err);
