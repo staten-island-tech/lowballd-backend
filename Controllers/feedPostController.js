@@ -2,7 +2,7 @@ const feedPost = require("../Models/feedPost");
 
 exports.getPosts = async (req, res) => {
   try {
-    const post = await feedPost.find().limit(5); //.limit is limiting how many things pop up upon request
+    const post = await feedPost.find().limit(100); //.limit is limiting how many things pop up upon request
     res.json(post);
   } catch (error) {
     console.log(error);

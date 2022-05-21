@@ -43,8 +43,8 @@ router.post("/upload", upload.array("pictures", 4), async (req, res) => {
   try {
     const post = new feedPost({
       title: req.body.title,
-      description: req.body.caption,
-      tags: req.body.tags,
+      description: req.body.description,
+      date: req.body.date,
     });
     if (!req.files) return res.send("Please upload a file");
     if (req.files) {
@@ -68,7 +68,7 @@ router.post("/upload", upload.array("pictures", 4), async (req, res) => {
     }
   } catch (err) {
     console.log(err)
-    res.json("this didn't work");
+    res.json(err);
   }
 });
 
