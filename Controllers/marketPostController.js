@@ -2,7 +2,7 @@ const marketPost = require("../Models/marketPost");
 
 exports.getPosts = async (req, res) => {
   try {
-    const post = await marketPost.find().limit(5); //.limit is limiting how many things pop up upon request
+    const post = await marketPost.find(); //.limit is limiting how many things pop up upon request
     res.json(post);
   } catch (error) {
     console.log(error);
