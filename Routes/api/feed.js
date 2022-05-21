@@ -39,9 +39,10 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/upload", upload.array("pictures", 4), async (req, res) => {
+router.post("/upload", upload.array("pictures", 5), async (req, res) => {
   try {
     const post = new feedPost({
+      userId: req.body.userId,
       title: req.body.title,
       description: req.body.description,
       date: req.body.date,

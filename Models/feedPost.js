@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const slugify = require("slugify");
 const feedPostSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       trim: true,
@@ -14,7 +18,6 @@ const feedPostSchema = new mongoose.Schema(
         required: "Please provide an image",
       },
     ],
-
     description: {
       type: String,
       trim: true,
@@ -37,7 +40,7 @@ const feedPostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 feedPostSchema.pre("save", function (next) {
-  if (!this.isModified("description", "date", "title")) {
+  if (!this.isModified("description", "date", "title", "userId")) {
     next();
     return;
   }
