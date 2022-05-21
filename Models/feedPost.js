@@ -5,24 +5,24 @@ const feedPostSchema = new mongoose.Schema(
     title: {
       type: String,
       trim: true,
-      required: true,
+      // required: true,
     },
     images: [
       {
         type: String,
         trim: true,
-        required: "Please provide an image",
+        // required: "Please provide an image",
       },
     ],
 
     description: {
       type: String,
       trim: true,
-      required: "Please provide a description",
+      // required: "Please provide a description",
     },
     date: {
       type: String,
-      required: "Please provide a date",
+      // required: "Please provide a date",
     },
     slug: String,
     tags: [String],

@@ -67,6 +67,7 @@ router.post("/upload", upload.array("pictures", 4), async (req, res) => {
       return res.status(201).json({ post });
     }
   } catch (err) {
+    console.log(err)
     res.json("this didn't work");
   }
 });
