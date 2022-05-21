@@ -37,7 +37,7 @@ const feedPostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 feedPostSchema.pre("save", function (next) {
-  if (!this.isModified("caption", "price", "title")) {
+  if (!this.isModified("description", "date", "title")) {
     next();
     return;
   }
