@@ -43,9 +43,8 @@ router.post("/upload", upload.array("pictures", 4), async (req, res) => {
   try {
     const post = new feedPost({
       title: req.body.title,
-      description: req.body.description,
+      description: req.body.caption,
       tags: req.body.tags,
-      date: req.body.date,
     });
     if (!req.files) return res.send("Please upload a file");
     if (req.files) {
