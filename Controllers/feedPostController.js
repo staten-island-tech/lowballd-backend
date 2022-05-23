@@ -9,6 +9,13 @@ exports.getPosts = async (req, res) => {
   }
 };
 
+exports.getPostsByMe = async (req, res) => {
+  try {
+    const myPost = await feedPost.findOne(req.body);
+    res.json(myPost);
+  } catch (error) {}
+};
+
 exports.updatePost = async (req, res) => {
   try {
     const post = await feedPost.findById(req.params.id);
