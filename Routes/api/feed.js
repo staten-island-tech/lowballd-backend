@@ -22,8 +22,6 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
-router.get("/", feedController.getPosts);
-
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
@@ -36,8 +34,10 @@ const storage = new CloudinaryStorage({
     folder: "Feed Images",
   },
 });
-
 const upload = multer({ storage: storage });
+
+router.get("/", feedController.getPosts);
+router.get("/profile/:id", feedController.getPostsByMe);
 
 router.post("/upload", upload.array("pictures", 5), async (req, res) => {
   try {
@@ -68,7 +68,7 @@ router.post("/upload", upload.array("pictures", 5), async (req, res) => {
       return res.status(201).json({ post });
     }
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.json(err);
   }
 });

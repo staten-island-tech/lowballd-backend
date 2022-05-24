@@ -11,9 +11,11 @@ exports.getPosts = async (req, res) => {
 
 exports.getPostsByMe = async (req, res) => {
   try {
-    const myPost = await feedPost.findOne(req.body);
+    const myPost = await feedPost.find({ userId: req.params.id });
     res.json(myPost);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.updatePost = async (req, res) => {
