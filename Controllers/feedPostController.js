@@ -1,4 +1,5 @@
 const feedPost = require("../Models/feedPost");
+const MarketPost = require("../Models/marketPost");
 
 exports.getPosts = async (req, res) => {
   try {
@@ -11,7 +12,10 @@ exports.getPosts = async (req, res) => {
 
 exports.getPostsByMe = async (req, res) => {
   try {
-    const myPost = await feedPost.find({ userId: req.params.id });
+    const myFeedPost = await feedPost.find({ userId: req.params.id });
+    const myMarketPost = await MarketPost.find({ userId: req.params.id });
+    const myPost = [];
+    myPost.push(myFeedPost, myMarketPost);
     res.json(myPost);
   } catch (error) {
     console.log(error);

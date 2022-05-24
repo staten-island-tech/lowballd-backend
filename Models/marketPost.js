@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const slugify = require("slugify");
 const marketPostSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       trim: true,
