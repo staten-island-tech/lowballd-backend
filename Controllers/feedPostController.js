@@ -22,6 +22,15 @@ exports.getPostsByMe = async (req, res) => {
   }
 };
 
+exports.getPostByID = async (req, res) => {
+  try {
+    const post = await feedPost.findById(req.params.id);
+    res.json(post);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 exports.updatePost = async (req, res) => {
   try {
     const post = await feedPost.findById(req.params.id);
