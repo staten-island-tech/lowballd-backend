@@ -58,6 +58,11 @@ const marketPostSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    categories: {
+      type: String,
+      trim: true,
+      required: "Please provide a category",
+    },
   },
   { timestamps: true }
 );
