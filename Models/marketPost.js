@@ -18,25 +18,20 @@ const marketPostSchema = new mongoose.Schema(
         required: "Please provide an image",
       },
     ],
-    price: {
-      type: Number,
-      trim: true,
-      required: "Please enter a list price",
-    },
     description: {
       type: String,
       trim: true,
       required: "Please provide a description",
     },
-    style: {
+    category: {
       type: String,
       trim: true,
-      required: "Please provide a style",
+      required: "Please provide a category",
     },
-    brand: {
-      type: String,
+    price: {
+      type: Number,
       trim: true,
-      required: "Please provide the brand of the product",
+      required: "Please enter a list price",
     },
     size: {
       type: String,
@@ -46,11 +41,6 @@ const marketPostSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: "Please provide the condition of the product",
-    },
-    color: {
-      type: String,
-      trim: true,
-      required: "Please provide a color",
     },
     slug: String,
     tags: [String],
@@ -62,7 +52,7 @@ const marketPostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 marketPostSchema.pre("save", function (next) {
-  if (!this.isModified("caption", "price", "title")) {
+  if (!this.isModified("userId", "title", "description", "category", "price", "size", "condition")) {
     next();
     return;
   }
