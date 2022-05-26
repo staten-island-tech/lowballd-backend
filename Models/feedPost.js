@@ -33,9 +33,6 @@ const feedPostSchema = new mongoose.Schema(
       type: Array,
       default: null,
     },
-    author: {
-      type: String,
-    },
   },
   { timestamps: true }
 );
