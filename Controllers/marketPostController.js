@@ -9,6 +9,15 @@ exports.getPosts = async (req, res) => {
   }
 };
 
+exports.getMarketPostsByMe = async (req, res) => {
+  try {
+    const myMarketPost = await marketPost.find({ userId: req.params.id });
+    res.json(myMarketPost);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 exports.getPostsKeyword = async (req, res) => {
   try {
     console.log(req.body);

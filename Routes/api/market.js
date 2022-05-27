@@ -26,6 +26,7 @@ const checkJwt = jwt({
 
 router.get("/", marketController.getPosts);
 router.get("/search", marketController.getPostsKeyword);
+router.get("/profile/:id", feedController.getFeedPostsByMe);
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,

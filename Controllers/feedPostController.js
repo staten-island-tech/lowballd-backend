@@ -10,14 +10,10 @@ exports.getPosts = async (req, res) => {
   }
 };
 
-exports.getPostsByMe = async (req, res) => {
+exports.getFeedPostsByMe = async (req, res) => {
   try {
     const myFeedPost = await feedPost.find({ userId: req.params.id });
-    const myMarketPost = await MarketPost.find({ userId: req.params.id });
-    const totalPost = [...myFeedPost, ...myMarketPost];
-    const myPost = totalPost;
-
-    res.json(myPost);
+    res.json(myFeedPost);
   } catch (error) {
     console.log(error);
   }

@@ -38,7 +38,7 @@ const upload = multer({ storage: storage });
 
 router.get("/", feedController.getPosts);
 router.get("/:id", feedController.getPostByID);
-router.get("/profile/:id", feedController.getPostsByMe);
+router.get("/profile/:id", feedController.getFeedPostsByMe);
 
 router.post("/upload", upload.array("pictures", 5), async (req, res) => {
   try {
