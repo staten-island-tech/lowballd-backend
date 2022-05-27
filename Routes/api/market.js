@@ -42,14 +42,15 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 router.post("/upload", upload.array("pictures", 5), async (req, res) => {
+  console.log(req.body);
   const post = new MarketPost({
     userId: req.body.userId,
     title: req.body.title,
     description: req.body.description,
-    category: req.body.category,
     price: req.body.price,
     size: req.body.size,
     condition: req.body.condition,
+    category: req.body.category,
   });
   if (!req.files) return res.send("Please upload a file");
   if (req.files) {

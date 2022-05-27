@@ -48,16 +48,21 @@ const marketPostSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    categories: {
-      type: String,
-      trim: true,
-      required: "Please provide a category",
-    },
   },
   { timestamps: true }
 );
 marketPostSchema.pre("save", function (next) {
-  if (!this.isModified("userId", "title", "description", "category", "price", "size", "condition")) {
+  if (
+    !this.isModified(
+      "userId",
+      "title",
+      "description",
+      "category",
+      "price",
+      "size",
+      "condition"
+    )
+  ) {
     next();
     return;
   }
