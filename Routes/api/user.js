@@ -50,7 +50,8 @@ const upload = multer({ storage: storage });
 // };
 
 router.get("/:id", userController.getUser);
-
+router.put("/:id/follow", userController.followUser);
+router.put("/:id/unfollow", userController.unfollowUser);
 router.patch("/update/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -65,27 +66,6 @@ router.patch("/update/:id", async (req, res) => {
 });
 
 //This doesn't work yet because I need to figure out what needs to happen for a person to follow another person.
-router.put("/:id/follow", async (req, res) => {
-  if (req.body.userId !== req.params.id) {
-    try {
-      const user = await User.findById(req.params.id);
-      const currentUser = await User.findById(req.body.userId);
-      if (!user.followers.includes(req.body.userId)) {
-        await user.updateOne({ $push: { totalFollowers: req.body.userId } });
-        await currentUser.updateOne({
-          $push: { totalFollowing: req.params.id },
-        });
-        res.status(200).json("user has been followed");
-      } else {
-        res.status(403).json("you already follow this user");
-      }
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.status(403).json("you cant follow yourself");
-  }
-});
 
 router.patch(
   "/update/pfp/:id",
