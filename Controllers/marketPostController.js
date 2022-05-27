@@ -21,7 +21,9 @@ exports.getMarketPostsByMe = async (req, res) => {
 exports.getPostsKeyword = async (req, res) => {
   try {
     console.log(req.body);
-    const post = await marketPost.find({ title: req.body.title });
+    const post = await marketPost.find({
+      title: { $regex: req.body.title, $options: "i" },
+    });
 
     res.json(post);
   } catch (error) {

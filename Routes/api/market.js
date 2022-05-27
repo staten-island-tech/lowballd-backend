@@ -24,9 +24,6 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
-router.get("/", marketController.getPosts);
-router.get("/search", marketController.getPostsKeyword);
-router.get("/profile/:id", feedController.getFeedPostsByMe);
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
@@ -41,6 +38,10 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage: storage });
+
+router.get("/", marketController.getPosts);
+router.get("/search", marketController.getPostsKeyword);
+router.get("/profile/:id", marketController.getMarketPostsByMe);
 
 router.post("/upload", upload.array("pictures", 5), async (req, res) => {
   console.log(req.body);
