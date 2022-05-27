@@ -4,27 +4,27 @@ const MarketPost = require("../Models/marketPost");
 exports.getPosts = async (req, res) => {
   try {
     const post = await feedPost.find().limit(100); //.limit is limiting how many things pop up upon request
-    res.json(post);
+    res.status(200).json(post);
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error);
   }
 };
 
 exports.getFeedPostsByMe = async (req, res) => {
   try {
     const myFeedPost = await feedPost.find({ userId: req.params.id });
-    res.json(myFeedPost);
+    res.status(200).json(myFeedPost);
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error);
   }
 };
 
 exports.getPostByID = async (req, res) => {
   try {
     const post = await feedPost.findById(req.params.id);
-    res.json(post);
+    res.status(200).json(post);
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error);
   }
 };
 
@@ -34,9 +34,9 @@ exports.updatePost = async (req, res) => {
     const updates = Object.keys(req.body);
     updates.forEach((update) => (post[update] = req.body[update]));
     await post.save();
-    res.json(post);
+    res.status(200).json(post);
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error);
   }
 };
 
@@ -63,6 +63,6 @@ exports.deletePost = async (req, res) => {
     }
     res.send(`${post.title} was deleted from the DB`);
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error);
   }
 };
