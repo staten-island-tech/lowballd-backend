@@ -43,6 +43,8 @@ exports.updatePost = async (req, res) => {
   }
 };
 
+
+
 exports.deletePost = async (req, res) => {
   try {
     const post = await marketPost.findOneAndDelete(req.params.id);
