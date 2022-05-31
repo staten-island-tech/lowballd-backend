@@ -54,6 +54,14 @@ exports.likePost = async (req, res) => {
     res.status(500).json(error);
   }
 };
+exports.commentOnPost = async (req, res) => {
+  try {
+    const post = await feedPost.findById(req.params.id);
+    await post.updateOne({ $push: { comments: req.body.userId } });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 exports.deletePost = async (req, res) => {
   try {

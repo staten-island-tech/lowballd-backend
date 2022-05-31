@@ -42,6 +42,7 @@ const upload = multer({ storage: storage });
 router.get("/", marketController.getPosts);
 router.get("/search", marketController.getPostsKeyword);
 router.get("/profile/:id", marketController.getMarketPostsByMe);
+router.get("/:id", marketController.getPostByID);
 
 router.post("/upload", upload.array("pictures", 5), async (req, res) => {
   console.log(req.body);

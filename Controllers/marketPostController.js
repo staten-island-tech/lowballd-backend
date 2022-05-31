@@ -17,7 +17,14 @@ exports.getMarketPostsByMe = async (req, res) => {
     console.log(error);
   }
 };
-
+exports.getPostByID = async (req, res) => {
+  try {
+    const post = await marketPost.findById(req.params.id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 exports.getPostsKeyword = async (req, res) => {
   try {
     console.log(req.body);
