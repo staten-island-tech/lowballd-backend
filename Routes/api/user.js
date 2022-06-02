@@ -65,8 +65,6 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 
-//This doesn't work yet because I need to figure out what needs to happen for a person to follow another person.
-
 router.patch(
   "/update/pfp/:id",
   checkJwt,
@@ -90,8 +88,8 @@ router.patch(
       res.json(user);
       console.log(req.file.path);
       console.log(user);
-    } catch (err) {
-      handleErrors(err);
+    } catch (error) {
+      res.status(500).json(error);
     }
   }
 );
