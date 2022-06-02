@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
     unique: true,
+    lowercase: true,
     validate: [isEmail, "Please enter a valid email"],
   },
   description: {
@@ -38,6 +39,13 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
 });
+
+userSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "userId",
+});
+
 userSchema.pre("save", function (next) {
   if (!this.isModified("username", "description")) {
     next();
@@ -71,4 +79,6 @@ userSchema.post("save", function (error, doc, next) {
   if (errorMessage) next(new Error(errorMessage));
   else next();
 });
-module.exports = mongoose.model("authentication", userSchema, "authentication");
+
+const User = mongoose.model("authentication", userSchema, "authentication");
+module.exports = User;

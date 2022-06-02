@@ -1,9 +1,13 @@
-const feedPost = require("../Models/feedPost");
+const comments = require("../Models/comments");
 
-exports.getPosts = async (req, res) => {
+exports.createComment = async (req, res) => {
+  const comment = new comments({
+    ...req.body,
+    userId: req.body.userId,
+  });
   try {
-    const post = await feedPost.find().limit(100); //.limit is limiting how many things pop up upon request
-    res.status(200).json(post);
+    await comment.save();
+    res.send(comment);
   } catch (error) {
     res.status(500).json(error);
   }
