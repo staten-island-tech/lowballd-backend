@@ -1,5 +1,5 @@
 const feedPost = require("../Models/feedPost");
-
+const comments = require("../Models/comments");
 exports.getPosts = async (req, res) => {
   try {
     const post = await feedPost.find().limit(100); //.limit is limiting how many things pop up upon request
@@ -56,7 +56,12 @@ exports.likePost = async (req, res) => {
 exports.commentOnPost = async (req, res) => {
   try {
     const post = await feedPost.findById(req.params.id);
-    await post.updateOne({ $push: { comments: req.body.userId } });
+    const comment = new comments({
+      userId: req.body.userId,
+      comment: req.body.comment,
+      date: req.body.date,
+    });
+    await post.updateOne({ $push: { comments: comment } });
   } catch (error) {
     res.status(500).json(error);
   }

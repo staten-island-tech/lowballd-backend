@@ -35,11 +35,9 @@ const feedPostSchema = new mongoose.Schema(
     },
     comments: [
       {
-        userId: {
-          type: String,
-          required: true,
-        },
-        type: String,
+        userId: String,
+        comment: String,
+        date: String,
       },
     ],
   },

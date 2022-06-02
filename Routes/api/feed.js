@@ -73,7 +73,7 @@ router.post("/upload", upload.array("pictures", 5), async (req, res) => {
     res.json(err);
   }
 });
-
+router.patch("/:id/comment", feedController.commentOnPost);
 router.patch("/update/:id", feedController.updatePost);
 router.delete("/delete/:id", checkJwt, feedController.deletePost);
 module.exports = router;
