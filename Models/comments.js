@@ -3,7 +3,6 @@ const Comment = mongoose.model("Comment", {
   userId: {
     type: String,
     required: true,
-    ref: "User",
   },
   comment: {
     type: String,

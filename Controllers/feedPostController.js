@@ -61,9 +61,13 @@ exports.commentOnPost = async (req, res) => {
       comment: req.body.comment,
       date: req.body.date,
     });
-    await post.updateOne({ $push: { comments: comment } });
+
+    post.comments.push(comment);
+    // post["comments"] = comment;
+    await post.save();
+    res.json(post);
   } catch (error) {
-    res.status(500).json(error);
+    console.log(error);
   }
 };
 

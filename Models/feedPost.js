@@ -33,13 +33,10 @@ const feedPostSchema = new mongoose.Schema(
       type: Array,
       default: null,
     },
-    comments: [
-      {
-        userId: String,
-        comment: String,
-        date: String,
-      },
-    ],
+    comments: {
+      type: Array,
+      default: null,
+    },
   },
   { timestamps: true }
 );

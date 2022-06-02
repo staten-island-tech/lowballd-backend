@@ -40,12 +40,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.virtual("comments", {
-  ref: "Comment",
-  localField: "_id",
-  foreignField: "userId",
-});
-
 userSchema.pre("save", function (next) {
   if (!this.isModified("username", "description")) {
     next();
