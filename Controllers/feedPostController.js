@@ -73,7 +73,7 @@ exports.commentOnPost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   try {
-    const post = await feedPost.findOneAndDelete(req.params.id);
+    const post = await feedPost.findByIdAndDelete(req.params.id);
     if (!post) {
       res.status(404).send();
     }
