@@ -9,7 +9,7 @@ exports.getUser = async (req, res) => {
     const user = await User.findById(req.params.id); //.limit is limiting how many things pop up upon request
     res.json(user);
   } catch (err) {
-    res.status(500).json(err);
+    res.json(err);
   }
 };
 exports.followUser = async (req, res) => {
@@ -27,10 +27,10 @@ exports.followUser = async (req, res) => {
         res.status(403).json("you already follow this user");
       }
     } catch (err) {
-      res.status(500).json(err);
+      res.json(err);
     }
   } else {
-    res.status(403).json("you cant follow yourself");
+    res.json("you cant follow yourself");
   }
 };
 
@@ -44,13 +44,13 @@ exports.unfollowUser = async (req, res) => {
         await currentUser.updateOne({ $pull: { following: req.params.id } });
         res.status(200).json("user has been unfollowed");
       } else {
-        res.status(403).json("you dont follow this user");
+        res.json("you dont follow this user");
       }
     } catch (err) {
-      res.status(500).json(err);
+      res.json(err);
     }
   } else {
-    res.status(403).json("you cant unfollow yourself");
+    res.json("you cant unfollow yourself");
   }
 };
 
@@ -64,6 +64,6 @@ exports.deleteUser = async (req, res) => {
     }
     res.send(`${user.username} was deleted from the DB`);
   } catch (err) {
-    handleErrors(err);
+    res.json(err);
   }
 };

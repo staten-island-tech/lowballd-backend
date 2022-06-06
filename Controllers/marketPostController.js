@@ -5,7 +5,7 @@ exports.getPosts = async (req, res) => {
     const post = await marketPost.find(); //.limit is limiting how many things pop up upon request
     res.status(200).json(post);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
 
@@ -14,7 +14,7 @@ exports.getMarketPostsByMe = async (req, res) => {
     const myMarketPost = await marketPost.find({ userId: req.params.id });
     res.status(200).json(myMarketPost);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
 exports.getPostByID = async (req, res) => {
@@ -22,7 +22,7 @@ exports.getPostByID = async (req, res) => {
     const post = await marketPost.findById(req.params.id);
     res.status(200).json(post);
   } catch (error) {
-    res.status(500).json(error);
+    res.send(error);
   }
 };
 exports.getPostsKeyword = async (req, res) => {
@@ -34,7 +34,7 @@ exports.getPostsKeyword = async (req, res) => {
 
     res.status(200).json(post);
   } catch (error) {
-    res.status(500).json(error);
+    res.send(error);
   }
 };
 
@@ -46,7 +46,7 @@ exports.updatePost = async (req, res) => {
     await post.save();
     res.status(200).json(post);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
 
@@ -58,6 +58,6 @@ exports.deletePost = async (req, res) => {
     }
     res.status(200).send(`${post.title} was deleted from the DB`);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };

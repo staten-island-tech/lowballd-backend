@@ -5,7 +5,7 @@ exports.getPosts = async (req, res) => {
     const post = await feedPost.find().limit(100); //.limit is limiting how many things pop up upon request
     res.status(200).json(post);
   } catch (error) {
-    res.status(500).json(error);
+    res.send(error);
   }
 };
 
@@ -14,7 +14,7 @@ exports.getFeedPostsByMe = async (req, res) => {
     const myFeedPost = await feedPost.find({ userId: req.params.id });
     res.status(200).json(myFeedPost);
   } catch (error) {
-    res.status(500).json(error);
+    res.send(error);
   }
 };
 
@@ -23,7 +23,7 @@ exports.getPostByID = async (req, res) => {
     const post = await feedPost.findById(req.params.id);
     res.status(200).json(post);
   } catch (error) {
-    res.status(500).json(error);
+    res.send(error);
   }
 };
 
@@ -35,7 +35,7 @@ exports.updatePost = async (req, res) => {
     await post.save();
     res.status(200).json(post);
   } catch (error) {
-    res.status(500).json(error);
+    res.send(error);
   }
 };
 
@@ -50,7 +50,7 @@ exports.likePost = async (req, res) => {
       res.status(200).json("Disliked");
     }
   } catch (error) {
-    res.status(500).json(error);
+    res.send(error);
   }
 };
 exports.commentOnPost = async (req, res) => {
@@ -67,7 +67,7 @@ exports.commentOnPost = async (req, res) => {
     await post.save();
     res.json(post);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
 
@@ -79,6 +79,6 @@ exports.deletePost = async (req, res) => {
     }
     res.send(`${post.title} was deleted from the DB`);
   } catch (error) {
-    res.status(500).json(error);
+    res.send(error);
   }
 };

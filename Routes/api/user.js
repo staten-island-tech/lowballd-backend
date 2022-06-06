@@ -61,36 +61,32 @@ router.patch("/update/:id", async (req, res) => {
     console.log(req.body);
     res.json(user);
   } catch (err) {
-    res.status(400).send(err.message);
+    res.send(err.message);
   }
 });
 
-router.patch(
-  "/update/pfp/:id",
-  upload.single("picture"),
-  async (req, res) => {
-    try {
-      const result = req.file.path;
-      const user = await User.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {
-          profile_picture: result,
-        },
+router.patch("/update/pfp/:id", upload.single("picture"), async (req, res) => {
+  try {
+    const result = req.file.path;
+    const user = await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      {
+        profile_picture: result,
+      },
 
-        {
-          new: true,
-        }
-      ).exec();
-      await user.save();
-      res.json(user);
-      console.log(req.file.path);
-      console.log(user);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+      {
+        new: true,
+      }
+    ).exec();
+    await user.save();
+    res.json(user);
+    console.log(req.file.path);
+    console.log(user);
+  } catch (error) {
+    res.json(error);
   }
-);
+});
 router.delete("/delete/:id", checkJwt, userController.deleteUser);
 module.exports = router;
