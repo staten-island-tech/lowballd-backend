@@ -67,7 +67,6 @@ router.patch("/update/:id", async (req, res) => {
 
 router.patch(
   "/update/pfp/:id",
-  checkJwt,
   upload.single("picture"),
   async (req, res) => {
     try {
