@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema({
     trim: true,
     default: "",
   },
+  location: {
+    type: String,
+    trim: true,
+    default: "New York, NY",
+  },
   profile_picture: {
     type: String,
     trim: true,
@@ -41,7 +46,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", function (next) {
-  if (!this.isModified("username", "description")) {
+  if (!this.isModified("username", "description", "location")) {
     next();
     return;
   }
