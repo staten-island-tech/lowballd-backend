@@ -40,7 +40,7 @@ router.get("/", feedController.getPosts);
 router.get("/:id", feedController.getPostByID);
 router.get("/profile/:id", feedController.getFeedPostsByMe);
 router.put("/:id/like", feedController.likePost);
-router.post("/upload", upload.array("pictures", 5), async (req, res) => {
+router.post("/upload", upload.single("pictures"), async (req, res) => {
   try {
     const post = new feedPost({
       userId: req.body.userId,
@@ -48,10 +48,10 @@ router.post("/upload", upload.array("pictures", 5), async (req, res) => {
       description: req.body.description,
       date: req.body.date,
     });
-    if (!req.files) return res.send("Please upload a file");
-    if (req.files) {
+    if (!req.file) return res.send("Please upload a file");
+    if (req.file) {
       const imageURIs = [];
-      const files = req.files;
+      const files = req.file;
       for (const file of files) {
         const { path } = file;
         imageURIs.push(path);

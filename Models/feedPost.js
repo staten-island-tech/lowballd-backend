@@ -11,13 +11,12 @@ const feedPostSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    images: [
-      {
-        type: String,
-        trim: true,
-        required: "Please provide an image",
-      },
-    ],
+    images: {
+      type: String,
+      trim: true,
+      required: "Please provide an image",
+    },
+
     description: {
       type: String,
       trim: true,
