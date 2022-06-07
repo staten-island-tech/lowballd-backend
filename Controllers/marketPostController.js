@@ -52,7 +52,7 @@ exports.updatePost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   try {
-    const post = await marketPost.findOneAndDelete(req.params.id);
+    const post = await marketPost.findByIdAndDelete(req.params.id);
     if (!post) {
       res.status(404).send();
     }
