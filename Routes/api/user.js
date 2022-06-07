@@ -85,7 +85,7 @@ router.patch("/update/pfp/:id", upload.single("picture"), async (req, res) => {
     console.log(req.file.path);
     console.log(user);
   } catch (error) {
-    res.json(error);
+    res.send(error);
   }
 });
 router.delete("/delete/:id", checkJwt, userController.deleteUser);

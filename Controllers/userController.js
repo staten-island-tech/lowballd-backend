@@ -9,7 +9,7 @@ exports.getUser = async (req, res) => {
     const user = await User.findById(req.params.id); //.limit is limiting how many things pop up upon request
     res.json(user);
   } catch (err) {
-    res.json(err);
+    res.send(err);
   }
 };
 exports.followUser = async (req, res) => {
@@ -27,10 +27,10 @@ exports.followUser = async (req, res) => {
         res.status(403).json("you already follow this user");
       }
     } catch (err) {
-      res.json(err);
+      res.send(err);
     }
   } else {
-    res.json("you cant follow yourself");
+    res.send("you cant follow yourself");
   }
 };
 
@@ -47,10 +47,10 @@ exports.unfollowUser = async (req, res) => {
         res.json("you dont follow this user");
       }
     } catch (err) {
-      res.json(err);
+      res.send(err);
     }
   } else {
-    res.json("you cant unfollow yourself");
+    res.send("you cant unfollow yourself");
   }
 };
 

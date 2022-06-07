@@ -70,7 +70,7 @@ router.post("/upload", upload.array("pictures", 5), async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.json(err);
+    res.send(err);
   }
 });
 router.patch("/:id/comment", feedController.commentOnPost);
