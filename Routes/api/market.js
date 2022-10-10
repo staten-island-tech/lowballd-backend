@@ -78,5 +78,5 @@ router.post("/upload", upload.array("pictures", 5), async (req, res) => {
 });
 
 router.patch("/update/:id", checkJwt, marketController.updatePost);
-router.delete("/delete/:id", checkJwt, marketController.deletePost);
+router.delete("/delete/:id", marketController.deletePost);
 module.exports = router;
